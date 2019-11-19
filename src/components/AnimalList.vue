@@ -3,6 +3,12 @@
 
      <form @submit.prevent>
        <table>
+          <tr>
+            <td><label>Sector:</label></td>
+            <select v-model="newAnimal.sector">
+              <option v-for="(sector, key) in sector" :key="key">{{ sector }}</option>
+            </select>
+        </tr>
         <tr>
           <td><label>Species:</label></td>
           <td><input v-model="newAnimal.species" type="text" id="species"></td>
@@ -21,11 +27,13 @@
   
     <table>
       <tr>
+        <th>Sector:</th>        
         <th>Species:</th>
         <th>Name:</th>
         <th>Age:</th>
       </tr>
       <tr v-for="(animal,index) in animals" :key="index">
+        <td>{{ animal.sector ? animal.sector : 'Unknown' }}</td>
         <td>{{ animal.species }}</td>
         <td>{{ animal.name }}</td>
         <td>{{ animal.dateOfBirth ? animal.dateOfBirth : 'Unknown' }}</td>
@@ -42,13 +50,14 @@ export default {
   data () {
       return {
           animals: [
-              {species: 'Lion', name: 'Simba', dateOfBirth: moment().format("DD-MM-YYYY")},
-              {species: 'Parrot', name: 'Ricky', dateOfBirth: moment().format("DD-MM-YYYY")},
-              {species: 'Penguin', name: 'Noot', dateOfBirth: moment().format("DD-MM-YYYY")},
-              {species: 'Penguin', name: 'Noot-Noot', dateOfBirth: ''},
-              {species: 'Rhino', name: 'Carl', dateOfBirth: moment().format("DD-MM-YYYY")}
+              {sector: 'Felidae', species: 'Lion', name: 'Simba', dateOfBirth: moment().format("DD-MM-YYYY")},
+              {sector: 'Birds', species: 'Parrot', name: 'Ricky', dateOfBirth: moment().format("DD-MM-YYYY")},
+              {sector: 'Birds', species: 'Penguin', name: 'Noot', dateOfBirth: moment().format("DD-MM-YYYY")},
+              {sector: 'Birds', species: 'Penguin', name: 'Noot-Noot', dateOfBirth: ''},
+              {sector: 'Other', species: 'Rhino', name: 'Carl', dateOfBirth: moment().format("DD-MM-YYYY")}
             ],
-            newAnimal: {}
+            newAnimal: {},
+            sector: ['Cats', 'Birds', 'Large mammals', 'Other']
           }
   },
 
