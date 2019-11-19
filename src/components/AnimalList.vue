@@ -41,6 +41,19 @@
         <td> <button @click="MoveToTop(index)">Move to top</button></td>
       </tr>
     </table>
+
+     <table>
+        <tr>
+          <th>Animals</th>
+        </tr>
+        <tr v-for="(sector, key) in sector" :key="key" >
+          <td>{{ sector }}</td>
+          <td>
+            <button @click ="showAnimal(sector)">Show Animal</button>
+          </td>
+        </tr>
+       </table>
+
   </div>
 </template>
 
@@ -62,20 +75,24 @@ export default {
   },
 
     methods: {
-       RemoveAnimal(key) {
+      RemoveAnimal(key) {
         this.animals.splice(key, 1);
       },
 
-       MoveToTop(key) {   
+      MoveToTop(key) {   
         this.animals.unshift(this.animals.splice(key, 1)[0]);
       },
 
       addNewAnimal(){
         this.animals.push({...this.newAnimal});
         this.newAnimal = {};
+      },
+
+      showAnimal(sector) {
+         let filteredAnimals = this.animals.filter(animals => animals.sector === sector).map(animals=> animals.name).join(', ');
+         alert(filteredAnimals);
       }
-     
-    }
+  }
 }
 
 </script>
