@@ -10,6 +10,8 @@
         <td>{{ animal.species }}</td>
         <td>{{ animal.name }}</td>
         <td>{{ animal.dateOfBirth ? animal.dateOfBirth : 'Unknown' }}</td>
+        <td> <button v-on:click="RemoveAnimal">Remove Animal</button></td>
+        <td> <button v-on:click="MoveToTop">Move to top</button></td>
       </tr>
     </table>
   </div>
@@ -29,6 +31,15 @@ export default {
           ]
         }
 
+    },
+
+    methods: {
+      RemoveAnimal(key) {
+        this.animals.splice(key, 1);
+      },
+      MoveToTop() {
+       
+      }
     }
 }
 
