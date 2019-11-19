@@ -1,5 +1,24 @@
 <template>
   <div>
+
+     <form @submit.prevent>
+       <table>
+        <tr>
+          <td><label>Species:</label></td>
+          <td><input v-model="newAnimal.species" type="text" id="species"></td>
+        </tr>
+        <tr>
+          <td><label>Animal's name:</label></td>
+          <td><input v-model="newAnimal.name" type="text" id="name"></td>
+        </tr>
+        <tr>
+          <td><label>Date of birth:</label></td>
+          <td><input v-model="newAnimal.dateOfBirth" type="text" id="dateOfBirth"></td>
+        </tr>
+      </table>  
+      <button @click="addNewAnimal" type="submit">Submit</button>
+    </form> 
+  
     <table>
       <tr>
         <th>Species:</th>
@@ -23,15 +42,15 @@ export default {
   data () {
       return {
           animals: [
-            {species: 'Lion', name: 'Simba', dateOfBirth: moment().format("DD-MM-YYYY")},
-            {species: 'Parrot', name: 'Ricky', dateOfBirth: moment().format("DD-MM-YYYY")},
-            {species: 'Penguin', name: 'Noot', dateOfBirth: moment().format("DD-MM-YYYY")},
-            {species: 'Penguin', name: 'Noot-Noot', dateOfBirth: ''},
-            {species: 'Rhino', name: 'Carl', dateOfBirth: moment().format("DD-MM-YYYY")}
-          ]
-        }
-
-    },
+              {species: 'Lion', name: 'Simba', dateOfBirth: moment().format("DD-MM-YYYY")},
+              {species: 'Parrot', name: 'Ricky', dateOfBirth: moment().format("DD-MM-YYYY")},
+              {species: 'Penguin', name: 'Noot', dateOfBirth: moment().format("DD-MM-YYYY")},
+              {species: 'Penguin', name: 'Noot-Noot', dateOfBirth: ''},
+              {species: 'Rhino', name: 'Carl', dateOfBirth: moment().format("DD-MM-YYYY")}
+            ],
+            newAnimal: {}
+          }
+  },
 
     methods: {
        RemoveAnimal(key) {
@@ -42,7 +61,10 @@ export default {
         this.animals.unshift(this.animals.splice(key, 1)[0]);
       },
 
-     
+      addNewAnimal(){
+        this.animals.push({...this.newAnimal});
+        this.newAnimal = {};
+      }
      
     }
 }
@@ -74,4 +96,5 @@ table {
 table, th, td {
   border: 1px solid black;
 }
+
 </style>
