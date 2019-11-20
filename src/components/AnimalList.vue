@@ -1,14 +1,16 @@
 <template>
-  <div>
-
-     <form @submit.prevent>
-       <table>
+  <div class="main">
+    <h1>Welcome to Vue-Zoo!</h1>
+    <div class="block">
+      <h2>Add a new animal</h2>
+      <form @submit.prevent>
+        <table>
           <tr>
             <td><label>Sector:</label></td>
             <select v-model="newAnimal.sector">
               <option v-for="(sector, key) in sector" :key="key">{{ sector }}</option>
             </select>
-        </tr>
+          </tr>
         <tr>
           <td><label>Species:</label></td>
           <td><input v-model="newAnimal.species" type="text" id="species"></td>
@@ -24,13 +26,16 @@
       </table>  
       <button @click="addNewAnimal" type="submit">Submit</button>
     </form> 
-  
+  </div>
+
+  <div class="block">
+  <h2>Animals in the Zoo</h2>
     <table>
       <tr>
-        <th>Sector:</th>        
-        <th>Species:</th>
-        <th>Name:</th>
-        <th>Age:</th>
+        <th>Sector</th>        
+        <th>Species</th>
+        <th>Name</th>
+        <th>Age</th>
       </tr>
       <tr v-for="(animal,index) in animals" :key="index">
         <td>{{ animal.sector ? animal.sector : 'Unknown' }}</td>
@@ -41,7 +46,10 @@
         <td> <button @click="MoveToTop(index)">Move to top</button></td>
       </tr>
     </table>
+  </div>
 
+  <div class="block">
+     <h2>Zoo sectors</h2>
      <table>
         <tr>
           <th>Animals</th>
@@ -49,11 +57,11 @@
         <tr v-for="(sector, key) in sector" :key="key" >
           <td>{{ sector }}</td>
           <td>
-            <button @click ="showAnimal(sector)">Show Animal</button>
+            <button @click ="showAnimal(sector)">Show Animals</button>
           </td>
         </tr>
-       </table>
-
+      </table>
+  </div>
   </div>
 </template>
 
@@ -63,7 +71,7 @@ export default {
   data () {
       return {
           animals: [
-              {sector: 'Felidae', species: 'Lion', name: 'Simba', dateOfBirth: moment().format("DD-MM-YYYY")},
+              {sector: 'Cats', species: 'Lion', name: 'Simba', dateOfBirth: moment().format("DD-MM-YYYY")},
               {sector: 'Birds', species: 'Parrot', name: 'Ricky', dateOfBirth: moment().format("DD-MM-YYYY")},
               {sector: 'Birds', species: 'Penguin', name: 'Noot', dateOfBirth: moment().format("DD-MM-YYYY")},
               {sector: 'Birds', species: 'Penguin', name: 'Noot-Noot', dateOfBirth: ''},
@@ -89,8 +97,18 @@ export default {
       },
 
       showAnimal(sector) {
-         let filteredAnimals = this.animals.filter(animals => animals.sector === sector).map(animals=> animals.name).join(', ');
-         alert(filteredAnimals);
+        let filteredAnimals = this.animals.filter(animals => animals.sector === sector)
+        .map(animals=> animals.name+"("+animals.species+")")
+        .join(', ');
+
+       
+        if(filteredAnimals === '') {
+          alert('There are no animals in this sector');
+        }
+        else {
+          alert(filteredAnimals);
+        }
+        
       }
   }
 }
@@ -119,8 +137,20 @@ table {
   border-collapse: collapse;
 }
 
+
+
 table, th, td {
   border: 1px solid black;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.block {
+  padding: 10px;
 }
 
 </style>
